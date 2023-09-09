@@ -56,11 +56,11 @@ def download_full_klines(symbol, interval, start, end=None, save_to=None, req_in
         tmp_kline = klines[i]
         data.append(tmp_kline[:-1])
 
-    df = pd.DataFrame(np.array(data), columns=cols, dtype=np.float)
+    df = pd.DataFrame(np.array(data), columns=cols, dtype=float)
     df.drop("close_time", axis=1, inplace=True)
     for col in cols:
         if col in ["open_time", "trade_cnt"]:
-            df[col] = df[col].astype(np.int)
+            df[col] = df[col].astype(int)
     df["open_time"] = pd.to_datetime(df["open_time"], unit="ms")
 
     if dimension == "ohlcv":
@@ -102,5 +102,5 @@ def interval_to_seconds(interval):
 
 if __name__ == '__main__':
     symbols = get_support_symbols()
-    download_full_klines(symbol="BTC/USDT", interval="15m", start="2021-07-01", end="2021-08-01",
+    download_full_klines(symbol="USDC/USDT", interval="15m", start="2023-06-01", end="2023-09-01",
                          save_to="path_to_file.csv")
